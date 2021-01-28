@@ -92,7 +92,7 @@ class EventManager extends \Doctrine\Common\EventManager
 
 				if ($eventArgs instanceof EventArgsList) {
 					/** @var \Kdyby\Events\EventArgsList $eventArgs */
-					call_user_func_array($listener, $eventArgs->getArgs());
+					call_user_func_array($listener, \array_values($eventArgs->getArgs()));
 
 				} else {
 					call_user_func($listener, $eventArgs);
