@@ -351,7 +351,6 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 				continue;
 			}
 
-			/** @var \Nette\DI\Definitions\ServiceDefinition $def */
 			if ($this->isAlias($def)) {
 				continue; // alias
 			}
@@ -407,12 +406,13 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 				continue;
 			}
 
+			$dispatchAnnotation = self::propertyHasAnnotation($property, 'globalDispatchFirst');
 			$def->addSetup('$' . $name, [
 				new Statement($this->prefix('@manager') . '::createEvent', [
 					[$class->getName(), $name],
 					new PhpLiteral('$service->' . $name),
 					NULL,
-					self::propertyHasAnnotation($property, 'globalDispatchFirst') ?: $this->loadedConfig['globalDispatchFirst'],
+					$dispatchAnnotation ?? $this->loadedConfig['globalDispatchFirst'],
 				]),
 			]);
 		}
@@ -494,10 +494,12 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 		return $instance;
 	}
 
-	private static function propertyHasAnnotation(ReflectionProperty $property, string $annotation): bool
+	private static function propertyHasAnnotation(ReflectionProperty $property, string $annotation): ?bool
 	{
 		$comment = $property->getDocComment();
 
-		return (bool) \strpos($comment, "@$annotation");
+		$exists = \strpos($comment, "@$annotation") !== FALSE;
+
+		return $exists ? !\stripos($comment, "@$annotation false") : NULL;
 	}
 }
