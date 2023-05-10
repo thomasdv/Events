@@ -1,5 +1,5 @@
 {
-	"name": "kdyby/events",
+	"name": "inspirecz/events",
 	"type": "library",
 	"description": "Events for Nette Framework",
 	"keywords": ["nette", "kdyby"],
@@ -19,7 +19,7 @@
 	"require": {
 		"php": "^7.4 | ^8.0",
 		"nette/di": "^3.0",
-		"nette/utils": "^3.0"
+		"nette/utils": "^3.0 || ^4.0"
 	},
 	"require-dev": {
 		"nette/application": "^3.0",
