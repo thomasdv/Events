@@ -1,5 +1,5 @@
 {
-	"name": "kdyby/events",
+	"name": "inspirecz/events",
 	"type": "library",
 	"description": "Events for Nette Framework",
 	"keywords": ["nette", "kdyby"],
