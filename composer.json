@@ -52,10 +52,5 @@
 		"classmap": [
 			"tests/KdybyTests"
 		]
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.2-dev"
-		}
 	}
 }
