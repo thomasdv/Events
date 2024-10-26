@@ -32,7 +32,6 @@ use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Definitions\Statement;
 use Nette\DI\Helpers as DIHelpers;
 use Nette\PhpGenerator\ClassType as ClassTypeGenerator;
-use Nette\PhpGenerator\Helpers as GeneratorHelpers;
 use Nette\PhpGenerator\PhpLiteral;
 use Nette\Utils\Validators;
 use ReflectionIntersectionType;
@@ -312,7 +311,7 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 						throw new \Nette\Utils\AssertionException(sprintf('Event listener %s::%s() is not implemented.', $defClass, $method));
 					}
 
-				} elseif (is_string($eventName) && false === $params instanceof Closure) { // [EventName => ???, ...]
+				} elseif (is_string($eventName)) { // [EventName => ???, ...]
 					$eventNames[] = ltrim($eventName, '\\');
 
 					if (is_string($params)) { // [EventName => method, ...]
@@ -320,12 +319,11 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 							throw new \Nette\Utils\AssertionException(sprintf('Event listener %s::%s() is not implemented.', $defClass, $params));
 						}
 
-					} elseif (is_string($params[0])) { // [EventName => [method, priority], ...]
+					} elseif (false === ($params instanceof Closure) && is_string($params[0])) { // [EventName => [method, priority], ...]
 						if (!method_exists($listenerInst, $params[0])) {
 							throw new \Nette\Utils\AssertionException(sprintf('Event listener %s::%s() is not implemented.', $defClass, $params[0]));
 						}
-
-					} else {
+					} elseif (false === $params instanceof Closure) {
 						foreach ($params as $listener) { // [EventName => [[method, priority], ...], ...]
 							if (!method_exists($listenerInst, $listener[0])) {
 								throw new \Nette\Utils\AssertionException(sprintf('Event listener %s::%s() is not implemented.', $defClass, $listener[0]));
@@ -470,6 +468,7 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 				if (!$namespace || !class_exists($namespace)) {
 					continue; // it might not even be a "classname" event namespace
 				}
+
 
 				// find all subclasses and register the listener to all the classes dispatching them
 				foreach ($builder->getDefinitions() as $def) {
