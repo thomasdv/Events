@@ -1,65 +1,71 @@
 {
-	"name": "inspirecz/events",
-	"type": "library",
-	"description": "Events for Nette Framework",
-	"keywords": [
-		"nette"
-	],
-	"license": [
-		"BSD-3-Clause",
-		"GPL-2.0",
-		"GPL-3.0"
-	],
-	"authors": [
-		{
-			"name": "Filip Procházka",
-			"homepage": "http://filip-prochazka.com",
-			"email": "filip@prochazka.su"
-		}
-	],
-	"require": {
-		"php": "8.3.*",
-		"nette/di": "^3.0",
-		"nette/utils": "^3.0 || ^4.0"
-	},
-	"require-dev": {
-		"nette/application": "^3.0",
-		"nette/bootstrap": "^3.0",
-		"nette/caching": "^3.0",
-		"nette/security": "^3.0",
-		"nette/http": "^3.0",
-		"tracy/tracy": "^2.5",
-		"symfony/event-dispatcher": "^3.0 || ^4.0",
-		"nette/tester": "^2.4",
-		"phpstan/phpstan": "^0.12.88",
-		"jakub-onderka/php-parallel-lint": "^1.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"Kdyby\\Events\\": "src/Events"
-		},
-		"classmap": [
-			"src/Events/exceptions.php"
-		],
-		"files": [
-			"src/Doctrine/compatibility.php",
-			"src/Symfony/compatibility.php"
-		]
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"KdybyTests\\": "tests/KdybyTests/"
-		},
-		"classmap": [
-			"tests/KdybyTests"
-		]
-	},
-	"config": {
+    "name": "inspirecz/events",
+    "type": "library",
+    "description": "Events for Nette Framework",
+    "keywords": [
+        "nette"
+    ],
+    "license": [
+        "BSD-3-Clause",
+        "GPL-2.0",
+        "GPL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Filip Procházka",
+            "homepage": "http://filip-prochazka.com",
+            "email": "filip@prochazka.su"
+        },
+        {
+            "name": "INSPIRE CZ s.r.o.",
+            "homepage": "http://www.inspire.cz",
+            "email": "support@inspire.cz"
+        }
+    ],
+    "require": {
+        "php": "8.3.*",
+        "nette/di": "^3.0",
+        "nette/utils": "^3.0 || ^4.0"
+    },
+    "require-dev": {
+        "nette/application": "^3.0",
+        "nette/bootstrap": "^3.0",
+        "nette/caching": "^3.0",
+        "nette/security": "^3.0",
+        "nette/http": "^3.0",
+        "tracy/tracy": "^2.5",
+        "symfony/event-dispatcher": "^3.0 || ^4.0",
+        "nette/tester": "^2.4",
+        "phpstan/phpstan": "^0.12.88",
+        "jakub-onderka/php-parallel-lint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kdyby\\Events\\": "src/Events"
+        },
+        "classmap": [
+            "src/Events/exceptions.php"
+        ],
+        "files": [
+            "src/Doctrine/compatibility.php",
+            "src/Symfony/compatibility.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KdybyTests\\": "tests/KdybyTests/"
+        },
+        "classmap": [
+            "tests/KdybyTests"
+        ]
+    },
+    "config": {
         "sort-packages": true,
-		"platform": {
-			"php": "8.3.0"
-		}
-     "conflict": {
-		"kdyby/events": "*"
-	}
+        "platform": {
+            "php": "8.3.0"
+        }
+    },
+    "conflict": {
+        "kdyby/events": "*"
+    }
 }
