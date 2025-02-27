@@ -412,7 +412,7 @@ class Panel implements \Tracy\IBarPanel
 			return $this->registeredClasses;
 		}
 
-		$refl = new ReflectionProperty(DIContainer::class, 'types');
+		$refl = new ReflectionProperty(DIContainer::class, 'aliases');
 		$refl->setAccessible(TRUE);
 		$types = $refl->getValue($this->sl);
 
