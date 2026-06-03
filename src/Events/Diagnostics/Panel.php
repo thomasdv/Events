@@ -411,7 +411,7 @@ class Panel implements \Tracy\IBarPanel
 		if ($this->registeredClasses !== NULL) {
 			return $this->registeredClasses;
 		}
-
+/*
 		$refl = new ReflectionProperty(DIContainer::class, 'types');
 		$refl->setAccessible(TRUE);
 		$types = $refl->getValue($this->sl);
@@ -425,7 +425,25 @@ class Panel implements \Tracy\IBarPanel
 
 			$this->registeredClasses[$type] = $serviceIds;
 		}
+*/
 
+		$refl = new ReflectionProperty(DIContainer::class, 'wiring'); // Nette DI: $types -> $wiring [type => [level => [serviceIds]]]
+		$wiring = $refl->getValue($this->sl);
+
+		$this->registeredClasses = [];
+		foreach ($wiring as $type => $levels) {
+			foreach ($levels as $serviceIds) {
+				foreach ((array) $serviceIds as $serviceId) {
+					if (isset($this->registeredClasses[$type])) {
+							$this->registeredClasses[$type] = FALSE;
+							continue;
+					}
+
+					$this->registeredClasses[$type] = $serviceId;
+				}
+			}
+		}
+		
 		return $this->registeredClasses;
 	}
 
