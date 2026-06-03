@@ -406,6 +406,10 @@ class EventsExtension extends \Nette\DI\CompilerExtension
 				continue;
 			}
 
+			if (($t = $property->getType()) instanceof \ReflectionNamedType && $t->getName() === 'array') {
+				continue; // typed `array $onX` (e.g. Nette core like Session::$onStart) — keep native array, don't swap to Kdyby Event object
+			}
+
 			$dispatchAnnotation = self::propertyHasAnnotation($property, 'globalDispatchFirst');
 			$def->addSetup('$' . $name, [
 				new Statement($this->prefix('@manager') . '::createEvent', [
